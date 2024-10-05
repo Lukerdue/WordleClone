@@ -1,12 +1,35 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Letter from './Letter';
 import '../style/Board.css';
 
 const WORD_LENGTH = 5
-const Board = ({ attempts, currentGuess }) => {
+function Board ({currentGuess, setCurrentGuess, attempts, setAttempts, guessed}){
+    const handleKeys = (e) => {
+        if (e === 'Enter') {
+          if (currentGuess.length === WORD_LENGTH) {
+            setAttempts([...attempts, currentGuess]);
+            setCurrentGuess('');
+          }
+        } else if (e === 'Backspace') {
+          setCurrentGuess(currentGuess.slice(0, -1));
+        } else if (currentGuess.length < WORD_LENGTH) {
+          setCurrentGuess(currentGuess + e);
+        }
+      };
+
+    useEffect(()=>{
+        const handleKeyUp = (e) =>{
+          handleKeys(e.key);
+        }
+        window.addEventListener('keyup', handleKeyUp);
+        return ()=>{
+          window.removeEventListener('keyup', handleKeyUp)
+        };
+      }, [currentGuess, attempts])
+
   return (
     <div className="board">
-      {attempts.map((guess, index) => (
+      {guessed ? "You Did It" : attempts.map((guess, index) => (
         <div className="row" key={index}>
           {guess.split('').map((letter, idx) => (
             <Letter letter={letter} key={idx} />
