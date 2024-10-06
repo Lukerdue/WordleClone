@@ -3,6 +3,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import Board from './components/Board';
 import './App.css';
+import { useLocalStorage } from './util/custom hooks/useLocalStorage';
 
 const WORD_LENGTH = 5;
 const MAX_ATTEMPTS = 6;
@@ -22,19 +23,14 @@ const wordBank = [
 const App = () => {
   const [attempts, setAttempts] = useState([]);
   const [currentGuess, setCurrentGuess] = useState('');
-  const [word, setWord] = useState('');
-
-  function pickWord () {
-    setWord(wordBank[Math.floor(Math.random() * wordBank.length)]);
-    console.log(word);
-  }
-
-  useEffect(()=>{pickWord();},[])
+  const [word, setWord] = useLocalStorage('target', wordBank[Math.floor(Math.random() * wordBank.length)]);
+  const [guessed, setGuessed] =useState(false);
+  console.log(word);
 
   return (
     <div className="App">
       <h1>Wordle Clone</h1>
-      <Board word={word} attempts={attempts} currentGuess={currentGuess} setAttempts={setAttempts} setCurrentGuess={setCurrentGuess}/>
+      <Board setGuessed={setGuessed} word={word} attempts={attempts} currentGuess={currentGuess} setAttempts={setAttempts} setCurrentGuess={setCurrentGuess} guessed={guessed}/>
     </div>
   );
 };

@@ -1,13 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import Letter from './Letter';
+import { checkWord } from '../util/helpers';
 import '../style/Board.css';
 
 const WORD_LENGTH = 5
-function Board ({currentGuess, setCurrentGuess, attempts, setAttempts, guessed}){
+function Board ({currentGuess, setCurrentGuess, attempts, setAttempts, guessed, word}){
     const handleKeys = (e) => {
         if (e === 'Enter') {
           if (currentGuess.length === WORD_LENGTH) {
             setAttempts([...attempts, currentGuess]);
+            console.log(checkWord(currentGuess, word));
             setCurrentGuess('');
           }
         } else if (e === 'Backspace') {
