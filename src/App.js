@@ -23,9 +23,12 @@ const wordBank = [
 const App = () => {
   const [attempts, setAttempts] = useState([]);
   const [currentGuess, setCurrentGuess] = useState('');
-  const [word, setWord] = useLocalStorage('target', wordBank[Math.floor(Math.random() * wordBank.length)]);
+  const [word, setWord] = useLocalStorage('target', 'blank');
   const [guessed, setGuessed] =useState(false);
-  console.log(word);
+
+  useEffect(()=>{
+    setWord(wordBank[Math.floor(Math.random() * wordBank.length)]);
+  },[])
 
   return (
     <div className="App">

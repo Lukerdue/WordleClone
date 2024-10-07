@@ -4,13 +4,20 @@ import { checkWord } from '../util/helpers';
 import '../style/Board.css';
 
 const WORD_LENGTH = 5
-function Board ({currentGuess, setCurrentGuess, attempts, setAttempts, guessed, word}){
+function Board ({currentGuess, setCurrentGuess, attempts, setAttempts, word}){
+  const [guessed, setGuessed] = useState([]);
     const handleKeys = (e) => {
         if (e === 'Enter') {
+          console.log(word);
           if (currentGuess.length === WORD_LENGTH) {
+            let grade = checkWord(currentGuess, word);
+            if(grade[0] === true){
+              console.log(grade);
+            } else {
             setAttempts([...attempts, currentGuess]);
-            console.log(checkWord(currentGuess, word));
+            console.log(grade);
             setCurrentGuess('');
+            }
           }
         } else if (e === 'Backspace') {
           setCurrentGuess(currentGuess.slice(0, -1));
@@ -31,7 +38,7 @@ function Board ({currentGuess, setCurrentGuess, attempts, setAttempts, guessed, 
 
   return (
     <div className="board">
-      {guessed ? "You Did It" : attempts.map((guess, index) => (
+      {attempts.map((guess, index) => (
         <div className="row" key={index}>
           {guess.split('').map((letter, idx) => (
             <Letter letter={letter} key={idx} />
