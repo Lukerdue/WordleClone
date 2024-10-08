@@ -10,7 +10,7 @@ const MAX_ATTEMPTS = 6;
 
 const wordBank = [
   "apple", "brave", "bones", "crisp", "drive", "eager", "flame", "grape", "heart",
-  "image", "jolly", "knack", "lemon", "march", "nerve", "ocean", "piano", 
+  "image", "jolly", "knack", "lemon", "march", "nerve", "ocean", "piano", "break",
   "queen", "robot", "shine", "toast", "umbra", "vivid", "whale", "xerox", 
   "yacht", "zebra", "bliss", "charm", "depth", "eagle", "frost", "globe", 
   "haste", "infer", "joint", "kneel", "liver", "maple", "noble", "opera", 
